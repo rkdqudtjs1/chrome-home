@@ -1,0 +1,116 @@
+<html>
+<style lang="scss">
+    a {
+        display: block;
+        font-size: 50px;
+        margin: auto;
+    }
+
+    a:link {
+        color: black;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: black;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: white;
+        background-color: rgb(255, 0, 0);
+        text-decoration: unset;
+    }
+
+    a {
+        text-transform: uppercase;
+    }
+
+    .divContainer {
+        display: flex;
+    }
+
+    .divContainer div {
+        flex: 1;
+        border-left: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        text-align: center;
+    }
+</style>
+<script>
+    var menus = [
+        { url: 'http://cafe.daum.net/dotax', name: 'dotax' },
+        { url: 'https://go.twitch.tv/', name: 'twitch' },
+        { url: 'https://torrenthaja.com/', name: 'torrenthaja' },
+        { url: 'https://torrent.mom/', name: 'torrentmom' },
+        { url: 'https://pubg.op.gg/user/bodyinsiderhythm?server=krjp', name: 'pubg.op.gg' }
+    ]
+    function onload() {
+        newTap();
+        makeMenu();
+    }
+    function makeMenu() {
+        var html = ''
+        menus.map(menu => {
+            html += getATag(menu)
+        })
+        document.getElementById("menu").innerHTML = html;
+    }
+    function newTap() {
+        var a = document.getElementsByTagName('a');
+        var length = a.length;
+        for (var i = 0; i < length; i++) {
+            a[i].setAttribute("target", "_blank");
+        }
+    }
+    function show(key) {
+        var id;
+        switch (key) {
+            case 'z':
+                id = "secret";
+                break;
+            default:
+                break;
+        }
+        document.getElementById(id).style.display
+            = document.getElementById(id).style.display === "none" ? "block" : "none";
+
+    }
+    function getATag(menu) {
+        return "<a href='" + menu.url + "' target='_blank'>" + menu.name + "</a>";
+    }
+    function setup() {
+        document.getElementsByClassName('setup-table')[0].style.display = 'block'
+    }
+</script>
+
+<body onload="onload()">
+    <!-- <div class='setup' onclick='setup()'>설정</div> -->
+    <div class='setup-table' style='display:none;'>
+        <table>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>주소</th>
+                </tr>
+            </thead>
+            <tbody id='tbody'>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="divContainer">
+        <div id="menu">
+        </div>
+        <div id="secret" style="display:none">
+            <a href="https://avnori.com">avnori</a>
+            <a href="https://www.mastabe.net/">mastabe</a>
+            <a href="https://manstorrent.com/">manstorrent</a>
+            <a href="https://town19.com/">town19</a>
+        </div>
+        <!-- <a href=""></a> -->
+    </div>
+    <span onclick="show('z')" accesskey="z"></span>
+</body>
+
+</html>
