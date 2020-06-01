@@ -1,5 +1,8 @@
 <html>
-<style lang="scss">
+<style>
+    body {
+        display: flex;
+    }
     a {
         display: block;
         font-size: 50px;
@@ -29,6 +32,7 @@
 
     .divContainer {
         display: flex;
+        flex: 1;
     }
 
     .divContainer div {
@@ -38,11 +42,11 @@
         text-align: center;
     }
     textarea {
-        width: 100%;
-        min-height: 500px;
+        flex: 1;
         border: 1px solid lightgray;
         border-radius: 4px;
         margin: 10px;
+        padding: 10px;
     }
 </style>
 <script>
