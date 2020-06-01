@@ -37,79 +37,53 @@
         border-right: 1px solid lightgray;
         text-align: center;
     }
+    textarea {
+        width: 100%;
+        min-height: 500px;
+        border: 1px solid lightgray;
+        border-radius: 4px;
+        margin: 10px;
+    }
 </style>
 <script>
-    var menus = [
+    const storageKey = "memo";
+    const menus = [
         { url: 'http://cafe.daum.net/dotax', name: 'dotax' },
         { url: 'https://go.twitch.tv/', name: '트위치' },
         { url: 'https://youtube.com', name: '유튜브' },
         { url: 'https://torrentvery2.com/', name: '토렌트베리' },
         { url: 'https://coupang.com/', name: '쿠팡' },
         { url: 'https://store.musinsa.com/', name: '무신사' },
-        { url: 'https://github.com/', name: 'github' }
+        { url: 'https://github.com/', name: 'github' },
+        { url: 'https://www.youtube.com/watch?v=H7QollPZa9Q', name: '타바타' }
     ]
     function onload() {
-        newTap();
         makeMenu();
+        setTextarea();
     }
     function makeMenu() {
-        var html = ''
-        menus.map(menu => {
-            html += getATag(menu)
-        })
-        document.getElementById("menu").innerHTML = html;
-    }
-    function newTap() {
-        var a = document.getElementsByTagName('a');
-        var length = a.length;
-        for (var i = 0; i < length; i++) {
-            a[i].setAttribute("target", "_blank");
-        }
-    }
-    function show(key) {
-        var id;
-        switch (key) {
-            case 'z':
-                id = "secret";
-                break;
-            default:
-                break;
-        }
-        document.getElementById(id).style.display
-            = document.getElementById(id).style.display === "none" ? "block" : "none";
-
+        const array = menus.map(menu => `<a href="${menu.url}" target="_blank">${menu.name}</a>`)
+        document.getElementById("menu").innerHTML = array.join('');
     }
     function getATag(menu) {
         return "<a href='" + menu.url + "' target='_blank'>" + menu.name + "</a>";
     }
-    function setup() {
-        document.getElementsByClassName('setup-table')[0].style.display = 'block'
+    function setTextarea() {
+        const memoElem = document.querySelector('#memo');
+        memoElem.value =  window.localStorage.getItem(storageKey);
+        memoElem.addEventListener('change', function(e) {
+            const value = e.target.value;
+            window.localStorage.setItem(storageKey, value);
+        })
     }
 </script>
 
 <body onload="onload()">
-    <!-- <div class='setup' onclick='setup()'>설정</div> -->
-    <div class='setup-table' style='display:none;'>
-        <table>
-            <thead>
-                <tr>
-                    <th>이름</th>
-                    <th>주소</th>
-                </tr>
-            </thead>
-            <tbody id='tbody'>
-
-            </tbody>
-        </table>
-    </div>
     <div class="divContainer">
         <div id="menu">
         </div>
-        <div id="secret" style="display:none">
-        </div>
-        <!-- <a href=""></a> -->
     </div>
-    <span onclick="show('z')" accesskey="z"></span>
+    <textarea id="memo"></textarea>
 </body>
 
 </html>
